@@ -57,5 +57,12 @@ class Account(abc.ABC):
         self,
         msg: str = ''
     ) -> str :
+        """
+        Método para mostrar detalhes do que foi feito.
+
+        Parâmetros:
+        :msg (str): mensagem que vai aparecer na ação.
+        """
         print(f'O seu saldo é R$ {self.balance:.2f} {msg}')
-        
+    
+    
