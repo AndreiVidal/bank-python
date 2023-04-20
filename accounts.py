@@ -30,8 +30,8 @@ class Account(abc.ABC):
 
     @abc.abstractmethod
     def withdrawal(
-        self,
-        amount: float
+            self,
+            amount: float
     ) -> float:
         """
         Método abstrato para realizar um saque na conta.
@@ -41,8 +41,8 @@ class Account(abc.ABC):
         """
 
     def deposit(
-        self,
-        value: float
+            self,
+            value: float
     ) -> float:
         """
         Método para realizar um depósito na conta.
@@ -54,8 +54,8 @@ class Account(abc.ABC):
         self.details(f'Deposito de R$ {value:.2f} ')
 
     def details(
-        self,
-        msg: str = ''
+            self,
+            msg: str = ''
     ) -> str:
         """
         Método para mostrar detalhes do que foi feito.
@@ -72,8 +72,8 @@ class SavingsAccount(Account):
     """
 
     def withdrawal(
-        self,
-        amount: float
+            self,
+            amount: float
     ) -> float:
         """
         Realiza um saque na conta poupança.
@@ -90,7 +90,52 @@ class SavingsAccount(Account):
         print('Não é possível sacar. Saldo insuficiente.')
 
 
+class CheckingAccount(Account):
+    """
+    Classe que define uma conta corrente.
+    """
+
+    def __init__(self,
+                 agency: int,
+                 account: int,
+                 balance: int | float,
+                 limit: int | float
+                 ) -> None:
+        """
+        Inicializa uma instância de CheckingAccount.
+
+        Parâmetros:
+        :agency (int): número da agência.
+        :account (int): número da conta.
+        :balance (int ou float): saldo inicial da conta.
+        :limit (float): limite de cheque especial.
+        """
+        super().__init__(agency, account, balance)
+        self.limit = limit
+
+    def withdrawal(self, amount: int | float) -> None:
+        """
+        Realiza um saque na conta corrente.
+
+        Parâmetros:
+        :amount (float): valor a ser sacado.
+        """
+
+        if amount <= self.balance + self.limit:
+            self.balance -= amount
+            self.details(
+                f'Voçê efetuou um saque no valor de R$ {amount:.2f} com sucesso')
+            return
+        print(
+            f'Saque no valor de R$ {amount:.2f} Recusado !\n'
+            f'Saldo insuficiente!\nSaldo: R$ {self.balance:.2f}\n'
+            f'Limite disponivel: R$ {self.limit:.2f}'
+        )
+
+
 if __name__ == '__main__':
-    saving_account1 = SavingsAccount(111, 222, 100)
-    saving_account1.details()
-    saving_account1.withdrawal(100)
+    checking_account1 = CheckingAccount(111, 222, 100, 20)
+    checking_account1.details()
+    checking_account1.withdrawal(1000)
+    checking_account1.deposit(1000)
+    checking_account1.withdrawal(1120)
