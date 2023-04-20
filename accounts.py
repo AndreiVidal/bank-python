@@ -32,7 +32,7 @@ class Account(abc.ABC):
     def withdrawal(
         self,
         amount: float
-    ) -> None:
+    ) -> float:
         """
         Método abstrato para realizar um saque na conta.
 
@@ -43,7 +43,7 @@ class Account(abc.ABC):
     def deposit(
         self,
         value: float
-    ) -> None:
+    ) -> float:
         """
         Método para realizar um depósito na conta.
 
@@ -52,17 +52,45 @@ class Account(abc.ABC):
         """
         self.balance += value
         self.details(f'Deposito de R$ {value:.2f} ')
-    
+
     def details(
         self,
         msg: str = ''
-    ) -> str :
+    ) -> str:
         """
         Método para mostrar detalhes do que foi feito.
 
         Parâmetros:
         :msg (str): mensagem que vai aparecer na ação.
         """
-        print(f'O seu saldo é R$ {self.balance:.2f} {msg}')
-    
-    
+        print(f'{msg}\nO seu saldo atual é de R$ {self.balance:.2f}')
+
+
+class SavingsAccount(Account):
+    """
+    Classe que define uma conta poupança.
+    """
+
+    def withdrawal(
+        self,
+        amount: float
+    ) -> float:
+        """
+        Realiza um saque na conta poupança.
+
+        Parâmetros:
+        :amount (float): valor a ser sacado.
+        """
+
+        if amount <= self.balance:
+            self.balance -= amount
+            self.details(f'Saque de R$ {amount:.2f} efetuado com sucesso.')
+            return self.balance
+        else:
+            print('Não é possível sacar. Saldo insuficiente.')
+
+
+if __name__ == '__main__':
+    saving_account1 = SavingsAccount(111, 222, 100)
+    saving_account1.details()
+    saving_account1.withdrawal(100)
