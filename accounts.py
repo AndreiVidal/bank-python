@@ -86,8 +86,8 @@ class SavingsAccount(Account):
             self.balance -= amount
             self.details(f'Saque de R$ {amount:.2f} efetuado com sucesso.')
             return self.balance
-        else:
-            print('Não é possível sacar. Saldo insuficiente.')
+
+        print('Não é possível sacar. Saldo insuficiente.')
 
 
 if __name__ == '__main__':
