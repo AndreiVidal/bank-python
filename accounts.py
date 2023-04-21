@@ -9,12 +9,7 @@ class Account(abc.ABC):
     Classe abstrata que define uma conta bancária.
     """
 
-    def __init__(
-        self,
-        agency: int,
-        account: int,
-        balance: int | float
-    ) -> None:
+    def __init__(self,agency: int, account: int, balance: int | float) -> None:
         """
         Inicializa uma instância de Account.
 
@@ -29,10 +24,7 @@ class Account(abc.ABC):
         self.balance = balance
 
     @abc.abstractmethod
-    def withdrawal(
-            self,
-            amount: float
-    ) -> float:
+    def withdrawal(self, amount: float) -> float:
         """
         Método abstrato para realizar um saque na conta.
 
@@ -40,10 +32,7 @@ class Account(abc.ABC):
         :amount (float): valor a ser sacado.
         """
 
-    def deposit(
-            self,
-            value: float
-    ) -> float:
+    def deposit(self, value: float) -> float:
         """
         Método para realizar um depósito na conta.
 
@@ -53,10 +42,7 @@ class Account(abc.ABC):
         self.balance += value
         self.details(f'Deposito de R$ {value:.2f} ')
 
-    def details(
-            self,
-            msg: str = ''
-    ) -> str:
+    def details(self, msg: str = '') -> str:
         """
         Método para mostrar detalhes do que foi feito.
 
@@ -71,10 +57,7 @@ class SavingsAccount(Account):
     Classe que define uma conta poupança.
     """
 
-    def withdrawal(
-            self,
-            amount: float
-    ) -> float:
+    def withdrawal(self, amount: float) -> float:
         """
         Realiza um saque na conta poupança.
 
@@ -95,12 +78,7 @@ class CheckingAccount(Account):
     Classe que define uma conta corrente.
     """
 
-    def __init__(self,
-                 agency: int,
-                 account: int,
-                 balance: int | float,
-                 limit: int | float
-                 ) -> None:
+    def __init__(self,agency: int,account: int,balance: int | float,limit: int | float) -> None:
         """
         Inicializa uma instância de CheckingAccount.
 
