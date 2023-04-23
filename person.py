@@ -26,3 +26,11 @@ class Person:
     @name.setter
     def name(self, name: str):
         self._name = name
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, age: int):
+        self._age = age
