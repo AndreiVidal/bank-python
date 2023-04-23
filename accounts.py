@@ -1,5 +1,6 @@
 """
-    Este módulo contém a implementação da classe Account, que define uma conta bancária.
+    Este módulo contém a implementação da classe Account, que define uma conta
+    bancária.
 """
 import abc
 
@@ -9,7 +10,11 @@ class Account(abc.ABC):
     Classe abstrata que define uma conta bancária.
     """
 
-    def __init__(self,agency: int, account: int, balance: int | float) -> None:
+    def __init__(self,
+                 agency: int,
+                 account: int,
+                 balance: int | float
+                 ) -> None:
         """
         Inicializa uma instância de Account.
 
@@ -32,7 +37,7 @@ class Account(abc.ABC):
         :amount (float): valor a ser sacado.
         """
 
-    def deposit(self, value: float) -> float:
+    def deposit(self, value: float) -> float:  # type: ignore
         """
         Método para realizar um depósito na conta.
 
@@ -42,7 +47,7 @@ class Account(abc.ABC):
         self.balance += value
         self.details(f'Deposito de R$ {value:.2f} ')
 
-    def details(self, msg: str = '') -> str:
+    def details(self, msg: str = '') -> str:  # type: ignore
         """
         Método para mostrar detalhes do que foi feito.
 
@@ -57,7 +62,7 @@ class SavingsAccount(Account):
     Classe que define uma conta poupança.
     """
 
-    def withdrawal(self, amount: float) -> float:
+    def withdrawal(self, amount: float) -> float:  # type: ignore
         """
         Realiza um saque na conta poupança.
 
@@ -78,7 +83,13 @@ class CheckingAccount(Account):
     Classe que define uma conta corrente.
     """
 
-    def __init__(self,agency: int,account: int,balance: int | float,limit: int | float) -> None:
+    def __init__(self,
+                 agency: int,
+                 account: int,
+                 balance: int | float,
+                 limit: int | float
+
+                 ) -> None:
         """
         Inicializa uma instância de CheckingAccount.
 
@@ -102,7 +113,8 @@ class CheckingAccount(Account):
         if amount <= self.balance + self.limit:
             self.balance -= amount
             self.details(
-                f'Voçê efetuou um saque no valor de R$ {amount:.2f} com sucesso')
+                f'Voçê efetuou um saque no valor de R$ {amount:.2f}'
+                f' com sucesso')
             return
         print(
             f'Saque no valor de R$ {amount:.2f} Recusado !\n'
