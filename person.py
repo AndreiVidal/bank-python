@@ -55,8 +55,12 @@ class Client(Person):
         self.account: accounts.Account | None = None
 
 
+# verificando funcionalidade
 if __name__ == '__main__':
     c1 = Client('Andrei', 31)
     c1.account = accounts.SavingsAccount(125, 2525, 2500)
     print(c1)
+    # output: Classe Client (Nome: 'Andrei'| Idade 31)
     print(c1.account)
+    # output: Classe SavingsAccount (Agencia: 125| Conta 2525) |
+    # Saldo R$ 2500.00)
