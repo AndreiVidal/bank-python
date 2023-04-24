@@ -3,6 +3,8 @@
     genérica
 """
 
+import accounts
+
 
 class Person:
     """
@@ -10,7 +12,7 @@ class Person:
     """
 
     def __init__(self, name: str, age: int) -> None:
-        """Inicializa uma instância de Account.
+        """Inicializa uma instância de Pessoa.
 
         Parâmetros:
         :name (str): nome da pessoa
@@ -19,6 +21,7 @@ class Person:
         self.name = name
         self.age = age
 
+    # getters e setters criados afim de treinamento e estudo !!
     @property
     def name(self):
         return self._name
@@ -34,3 +37,26 @@ class Person:
     @age.setter
     def age(self, age: int):
         self._age = age
+
+    def __repr__(self) -> str:
+        type_class = type(self).__name__
+        class_name = f'Classe {type_class}'
+        attrs = f'(Nome: {self.name!r}| Idade {self.age!r})'
+        return f'{class_name} {attrs}'
+
+
+class Client(Person):
+    """
+        Classe Cliente que herda de Pessoa
+    """
+
+    def __init__(self, name: str, age: int) -> None:
+        super().__init__(name, age)
+        self.account: accounts.Account | None = None
+
+
+if __name__ == '__main__':
+    c1 = Client('Andrei', 31)
+    c1.account = accounts.SavingsAccount(125, 2525, 2500)
+    print(c1)
+    print(c1.account)
