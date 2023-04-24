@@ -56,6 +56,13 @@ class Account(abc.ABC):
         """
         print(f'{msg}\nO seu saldo atual é de R$ {self.balance:.2f}')
 
+    def __repr__(self) -> str | float:
+        type_class = type(self).__name__
+        class_name = f'Classe {type_class}'
+        attrs = f'(Agencia: {self.agency!r}| Conta {self.account!r})'\
+                f' | Saldo R$ {self.balance:.2f})'
+        return f'{class_name} {attrs}'
+
 
 class SavingsAccount(Account):
     """
@@ -123,9 +130,18 @@ class CheckingAccount(Account):
         )
 
 
+# verificando o funcionamento
 if __name__ == '__main__':
     checking_account1 = CheckingAccount(111, 222, 100, 20)
     checking_account1.details()
+    # output: O seu saldo atual é de R$ 100.00
     checking_account1.withdrawal(1000)
+    # output: Saldo insuficiente!
+    #         Saldo: R$ 100.00.00
+    #         Limite disponivel: R$ 20.00
     checking_account1.deposit(1000)
+    # output: Deposito de R$ 1000.00
+    #        O seu saldo atual é de R$ 1100.00
     checking_account1.withdrawal(1120)
+    # output: Voçê efetuou um saque no valor de R$ 1120.00 com sucesso
+    # O seu saldo atual é de R$ -20.00
