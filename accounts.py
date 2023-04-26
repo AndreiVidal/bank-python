@@ -37,15 +37,22 @@ class Account(abc.ABC):
         :amount (float): valor a ser sacado.
         """
 
-    def deposit(self, value: float) -> float:  # type: ignore
+    def deposit(self, value: float = None) -> float:  # type: ignore
         """
         Método para realizar um depósito na conta.
 
         Parâmetros:
         :value (float): valor a ser depositado.
         """
-        self.balance += value
-        self.details(f'Deposito de R$ {value:.2f} ')
+        if value == None:
+
+            value = input('Qual valor para depósito ')
+            if not value.isdigit():
+                print('digit apenas numeros')
+            else:
+                value = float(value)
+                self.balance += value
+                self.details(f'Deposito de R$ {value:.2f} ')
 
     def details(self, msg: str = '') -> str:  # type: ignore
         """
@@ -139,7 +146,7 @@ if __name__ == '__main__':
     # output: Saldo insuficiente!
     #         Saldo: R$ 100.00.00
     #         Limite disponivel: R$ 20.00
-    checking_account1.deposit(1000)
+    checking_account1.deposit()
     # output: Deposito de R$ 1000.00
     #        O seu saldo atual é de R$ 1100.00
     checking_account1.withdrawal(1120)
